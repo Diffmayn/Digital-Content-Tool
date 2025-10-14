@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Order Management - Comprehensive View</title>
+    <link rel="stylesheet" href="comprehensive.css">
+</head>
+<body>
+    <div class="efficient-pro-layout">
+        <!-- Compact Sidebar -->
+        <aside class="sidebar-compact">
+            <div class="logo-compact">PO</div>
+            <nav class="nav-icons">
+                <button class="nav-icon active" title="Dashboard">📊</button>
+                <button class="nav-icon" title="Orders">📋</button>
+                <button class="nav-icon" title="Photographers">📸</button>
+                <button class="nav-icon" title="Studios">🏢</button>
+                <button class="nav-icon" title="Analytics">📈</button>
+                <button class="nav-icon" title="Reports">📄</button>
+                <button class="nav-icon" title="Settings">⚙️</button>
+            </nav>
+            <button class="nav-icon user-icon" title="Admin User">👤</button>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-efficient-pro">
+            <!-- Top Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <h1>Photo Order Management</h1>
+                    <span class="view-label">Comprehensive View - All Fields</span>
+                </div>
+                <div class="toolbar-right">
+                    <input type="search" class="search-box" id="globalSearch" placeholder="Search across all fields...">
+                    <button class="tool-btn" id="exportBtn">📊 Export</button>
+                    <button class="tool-btn" id="refreshBtn">🔄 Refresh</button>
+                    <button class="tool-btn primary" id="newOrderBtn">+ New Order</button>
+                </div>
+            </div>
+
+            <!-- Metrics Bar -->
+            <div class="metrics-bar">
+                <div class="metric">
+                    <span class="metric-icon">📋</span>
+                    <div>
+                        <span class="metric-label">Total Orders</span>
+                        <span class="metric-value" id="totalOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">⏳</span>
+                    <div>
+                        <span class="metric-label">Pending</span>
+                        <span class="metric-value" id="pendingOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">🎯</span>
+                    <div>
+                        <span class="metric-label">In Progress</span>
+                        <span class="metric-value" id="inProgressOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">✅</span>
+                    <div>
+                        <span class="metric-label">Completed</span>
+                        <span class="metric-value" id="completedOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">💰</span>
+                    <div>
+                        <span class="metric-label">Total Cost</span>
+                        <span class="metric-value" id="totalCost">$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Filter Panel -->
+            <div class="filter-panel">
+                <div class="filter-header">
+                    <h3>🔍 Advanced Filters - Filter by Any Column</h3>
+                    <div class="filter-actions">
+                        <button class="filter-btn" id="applyFiltersBtn">Apply Filters</button>
+                        <button class="filter-btn secondary" id="clearFiltersBtn">Clear All</button>
+                        <button class="filter-btn icon" id="toggleFiltersBtn">▼</button>
+                    </div>
+                </div>
+                <div class="filter-content" id="filterContent">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label>Order Number</label>
+                            <input type="text" id="filterOrderNumber" placeholder="ORD-2001">
+                        </div>
+                        <div class="filter-group">
+                            <label>Page</label>
+                            <input type="number" id="filterPage" placeholder="1-999">
+                        </div>
+                        <div class="filter-group">
+                            <label>Offer ID</label>
+                            <input type="text" id="filterOfferID" placeholder="1500000">
+                        </div>
+                        <div class="filter-group">
+                            <label>Group</label>
+                            <select id="filterGroup">
+                                <option value="">All Groups</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Product">Product</option>
+                                <option value="Event">Event</option>
+                                <option value="Editorial">Editorial</option>
+                                <option value="Social">Social</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Offer Name</label>
+                            <input type="text" id="filterOfferName" placeholder="Summer Sale 2024">
+                        </div>
+                        <div class="filter-group">
+                            <label>Type</label>
+                            <select id="filterType">
+                                <option value="">All Types</option>
+                                <option value="Portrait">Portrait</option>
+                                <option value="Product">Product</option>
+                                <option value="Landscape">Landscape</option>
+                                <option value="Macro">Macro</option>
+                                <option value="Studio">Studio</option>
+                                <option value="Lifestyle">Lifestyle</option>
+                                <option value="Action">Action</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Photographer</label>
+                            <select id="filterPhotographer">
+                                <option value="">All Photographers</option>
+                                <option value="Sarah Johnson">Sarah Johnson</option>
+                                <option value="Mike Chen">Mike Chen</option>
+                                <option value="Emma Davis">Emma Davis</option>
+                                <option value="Photo Box">Photo Box</option>
+                                <option value="Generative AI">Generative AI</option>
+                                <option value="Post-Processing">Post-Processing</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Principle</label>
+                            <select id="filterPrinciple">
+                                <option value="">All Principles</option>
+                                <option value="Product Focus">Product Focus</option>
+                                <option value="Lifestyle Context">Lifestyle Context</option>
+                                <option value="Brand Story">Brand Story</option>
+                                <option value="Technical Detail">Technical Detail</option>
+                                <option value="Emotional Appeal">Emotional Appeal</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Cost Center</label>
+                            <select id="filterCostCenter">
+                                <option value="">All Cost Centers</option>
+                                <option value="CC-001 Marketing">CC-001 Marketing</option>
+                                <option value="CC-002 Product">CC-002 Product</option>
+                                <option value="CC-003 Digital">CC-003 Digital</option>
+                                <option value="CC-004 Events">CC-004 Events</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Article Number</label>
+                            <input type="text" id="filterArticleNo" placeholder="12345678">
+                        </div>
+                        <div class="filter-group">
+                            <label>Article Name</label>
+                            <input type="text" id="filterArticleName" placeholder="Nike Shoe">
+                        </div>
+                        <div class="filter-group">
+                            <label>Purchase Group</label>
+                            <input type="text" id="filterPurchaseGroup" placeholder="112">
+                        </div>
+                        <div class="filter-group">
+                            <label>Content Type</label>
+                            <select id="filterContentType">
+                                <option value="">All Types</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Editorial">Editorial</option>
+                                <option value="E-commerce">E-commerce</option>
+                                <option value="Social Media">Social Media</option>
+                                <option value="Print">Print</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>SAM Shot Type</label>
+                            <select id="filterSAMShot">
+                                <option value="">All Shot Types</option>
+                                <option value="Studio">Studio</option>
+                                <option value="On-location">On-location</option>
+                                <option value="Macro">Macro</option>
+                                <option value="Lifestyle">Lifestyle</option>
+                                <option value="Environmental">Environmental</option>
+                                <option value="360°">360°</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Activity Code</label>
+                            <input type="text" id="filterActivity" placeholder="A5252052">
+                        </div>
+                        <div class="filter-group">
+                            <label>Combined Photo</label>
+                            <select id="filterCombined">
+                                <option value="">All</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Sample Status</label>
+                            <select id="filterSampleStatus">
+                                <option value="">All Statuses</option>
+                                <option value="Article Sent">Article Sent</option>
+                                <option value="Article Scanned">Article Scanned</option>
+                                <option value="Article Sent Back">Article Sent Back</option>
+                                <option value="In Quality Check">In Quality Check</option>
+                                <option value="Awaiting Pickup">Awaiting Pickup</option>
+                                <option value="In Transit">In Transit</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Processing">Processing</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Status</label>
+                            <select id="filterStatus">
+                                <option value="">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Deadline From</label>
+                            <input type="date" id="filterDeadlineFrom">
+                        </div>
+                        <div class="filter-group">
+                            <label>Deadline To</label>
+                            <input type="date" id="filterDeadlineTo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comprehensive Data Table -->
+            <div class="table-container">
+                <table class="data-table" id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="orderNumber">Order #</th>
+                            <th class="sortable" data-sort="page">Page</th>
+                            <th class="sortable" data-sort="offerID">Offer ID</th>
+                            <th class="sortable" data-sort="group">Group</th>
+                            <th class="sortable" data-sort="offerName">Offer Name</th>
+                            <th class="sortable" data-sort="type">Type</th>
+                            <th class="sortable" data-sort="photoReference">Photo Ref</th>
+                            <th class="sortable" data-sort="fileReference">File Reference</th>
+                            <th class="sortable" data-sort="photographer">Photographer</th>
+                            <th class="sortable" data-sort="principle">Principle</th>
+                            <th>Dialog</th>
+                            <th class="sortable" data-sort="pmLink">PM Link</th>
+                            <th class="sortable" data-sort="costCenter">Cost Center</th>
+                            <th class="sortable" data-sort="articleNo">Article #</th>
+                            <th class="sortable" data-sort="articleName">Article Name</th>
+                            <th class="sortable" data-sort="purchasingGroup">Purchase Group</th>
+                            <th class="sortable" data-sort="contentType">Content Type</th>
+                            <th class="sortable" data-sort="samShotType">SAM Shot</th>
+                            <th class="sortable" data-sort="activity">Activity</th>
+                            <th class="sortable" data-sort="combinedPhoto">Combined</th>
+                            <th class="sortable" data-sort="briefing">Briefing</th>
+                            <th class="sortable" data-sort="sampleDelivery">Sample Delivery</th>
+                            <th class="sortable" data-sort="deadline">Deadline</th>
+                            <th class="sortable" data-sort="sampleReceived">Sample Status</th>
+                            <th class="sortable" data-sort="fileName">File Name</th>
+                            <th class="sortable" data-sort="uploadTime">Upload Time</th>
+                            <th>Preview</th>
+                            <th>Alert</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Orders will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-info">
+                    Showing <span id="showingStart">0</span> to <span id="showingEnd">0</span> of <span id="totalFiltered">0</span> orders
+                </div>
+                <div class="pagination-controls">
+                    <button class="page-btn" id="prevPage">← Previous</button>
+                    <div class="page-numbers" id="pageNumbers"></div>
+                    <button class="page-btn" id="nextPage">Next →</button>
+                </div>
+                <div class="page-size-selector">
+                    <label>Rows per page:</label>
+                    <select id="pageSize">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Order Details</h2>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="orderDetailsBody">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments/Dialog Modal -->
+    <div class="modal" id="commentsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>💬 Comments & Dialog</h2>
+                <button class="close-btn" onclick="closeCommentsModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="comments-section" id="commentsSection">
+                    <!-- Populated dynamically -->
+                </div>
+                <div class="add-comment">
+                    <textarea id="newComment" placeholder="Add a comment..." rows="3"></textarea>
+                    <button class="btn-primary" onclick="addComment()">Post Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="comprehensive.js"></script>
+</body>
+</html>

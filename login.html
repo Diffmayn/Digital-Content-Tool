@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Content Order Management System</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-section">
+                <div class="logo-icon">📊</div>
+                <h1>Content Order Management</h1>
+                <p class="subtitle">Enterprise System</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username" placeholder="Enter your username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
+                </div>
+
+                <div class="error-message" id="errorMessage"></div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span class="btn-text">Sign In</span>
+                    <span class="btn-loader">Authenticating...</span>
+                </button>
+            </form>
+
+            <div class="demo-accounts">
+                <h3>Demo Accounts</h3>
+                <div class="demo-grid">
+                    <div class="demo-account" data-username="admin" data-password="admin123">
+                        <strong>👤 Admin</strong>
+                        <span>Full System Access</span>
+                    </div>
+                    <div class="demo-account" data-username="coord1" data-password="coord123">
+                        <strong>📋 Promo Coordinator 1</strong>
+                        <span>Purchase Groups: 100, 200, 300</span>
+                    </div>
+                    <div class="demo-account" data-username="coord2" data-password="coord123">
+                        <strong>📋 Promo Coordinator 2</strong>
+                        <span>Purchase Groups: 400, 500, 600</span>
+                    </div>
+                    <div class="demo-account" data-username="photographer" data-password="photo123">
+                        <strong>📷 Photographer (M&B)</strong>
+                        <span>View Assigned Orders</span>
+                    </div>
+                    <div class="demo-account" data-username="agency" data-password="agency123">
+                        <strong>🎨 Agency User</strong>
+                        <span>Add Briefs & View All</span>
+                    </div>
+                    <div class="demo-account" data-username="marketing" data-password="market123">
+                        <strong>📢 Marketing User</strong>
+                        <span>Read-Only Access</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-footer">
+                <p>&copy; 2025 Content Order Management System. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>

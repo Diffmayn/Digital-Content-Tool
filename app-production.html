@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Order Management System</title>
+    <meta name="description" content="Professional photo order management system for photographers and studios">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <!-- Configuration (Must load first) -->
+    <script src="config/app.config.js"></script>
+</head>
+<body>
+    <div class="efficient-pro-layout">
+        <!-- Compact Sidebar -->
+        <aside class="sidebar-compact">
+            <div class="logo-compact">PO</div>
+            <nav class="nav-icons">
+                <button class="nav-icon active" title="Dashboard" data-view="dashboard">📊</button>
+                <button class="nav-icon" title="Orders" data-view="orders">📋</button>
+                <button class="nav-icon" title="Photographers">📸</button>
+                <button class="nav-icon" title="Studios">🏢</button>
+                <button class="nav-icon" title="Analytics">📈</button>
+                <button class="nav-icon" title="Reports">📄</button>
+                <button class="nav-icon" title="Settings">⚙️</button>
+            </nav>
+            <div class="sidebar-bottom">
+                <div id="userInfo" class="user-info"></div>
+                <button class="nav-icon user-icon" id="logoutBtn" title="Logout" style="display: none;">🚪</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-efficient-pro">
+            <!-- Top Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <h1>Photo Order Management</h1>
+                    <span class="view-label">Production System v1.0</span>
+                </div>
+                <div class="toolbar-right">
+                    <input type="search" class="search-box" id="globalSearch" placeholder="Search across all fields...">
+                    <button class="tool-btn" id="exportBtn" title="Export to CSV">📊 Export</button>
+                    <button class="tool-btn" id="refreshBtn" title="Refresh data">🔄 Refresh</button>
+                    <button class="tool-btn primary" id="newOrderBtn" title="Create new order">+ New Order</button>
+                </div>
+            </div>
+
+            <!-- Metrics Bar -->
+            <div class="metrics-bar">
+                <div class="metric">
+                    <span class="metric-icon">📋</span>
+                    <div>
+                        <span class="metric-label">Total Orders</span>
+                        <span class="metric-value" id="totalOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">⏳</span>
+                    <div>
+                        <span class="metric-label">Pending</span>
+                        <span class="metric-value" id="pendingOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">🔄</span>
+                    <div>
+                        <span class="metric-label">In Progress</span>
+                        <span class="metric-value" id="inProgressOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">✅</span>
+                    <div>
+                        <span class="metric-label">Completed</span>
+                        <span class="metric-value" id="completedOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">⚠️</span>
+                    <div>
+                        <span class="metric-label">Alerts</span>
+                        <span class="metric-value alert" id="alertOrders">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Panel -->
+            <div class="filter-panel" id="filterPanel">
+                <div class="filter-header">
+                    <h3>🔍 Filters</h3>
+                    <div class="filter-actions">
+                        <button class="filter-btn" id="applyFiltersBtn">Apply</button>
+                        <button class="filter-btn secondary" id="clearFiltersBtn">Clear All</button>
+                    </div>
+                </div>
+                <div class="filter-content" id="filterContent">
+                    <div class="filter-grid">
+                        <!-- Status Filter -->
+                        <div class="filter-group">
+                            <label>Status</label>
+                            <select id="filterStatus" data-filter="status">
+                                <option value="">All</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+
+                        <!-- Group Filter -->
+                        <div class="filter-group">
+                            <label>Group</label>
+                            <select id="filterGroup" data-filter="group">
+                                <option value="">All</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Product">Product</option>
+                                <option value="Event">Event</option>
+                                <option value="Editorial">Editorial</option>
+                                <option value="Social">Social</option>
+                            </select>
+                        </div>
+
+                        <!-- Type Filter -->
+                        <div class="filter-group">
+                            <label>Type</label>
+                            <select id="filterType" data-filter="type">
+                                <option value="">All</option>
+                                <option value="Portrait">Portrait</option>
+                                <option value="Product">Product</option>
+                                <option value="Landscape">Landscape</option>
+                                <option value="Macro">Macro</option>
+                                <option value="Studio">Studio</option>
+                                <option value="Lifestyle">Lifestyle</option>
+                            </select>
+                        </div>
+
+                        <!-- Photographer Filter -->
+                        <div class="filter-group">
+                            <label>Photographer/Method</label>
+                            <select id="filterPhotographer" data-filter="photographer">
+                                <option value="">All</option>
+                                <option value="Sarah Johnson">Sarah Johnson</option>
+                                <option value="Mike Chen">Mike Chen</option>
+                                <option value="Emma Davis">Emma Davis</option>
+                                <option value="Photo Box">Photo Box</option>
+                                <option value="Generative AI">Generative AI</option>
+                                <option value="Post-Processing">Post-Processing</option>
+                            </select>
+                        </div>
+
+                        <!-- Purchase Group Filter -->
+                        <div class="filter-group">
+                            <label>Purchase Group</label>
+                            <input type="text" id="filterPurchaseGroup" data-filter="purchasingGroup" placeholder="e.g., 112">
+                        </div>
+
+                        <!-- Date Range Filter -->
+                        <div class="filter-group">
+                            <label>Deadline From</label>
+                            <input type="date" id="filterDateFrom" data-filter="deadlineFrom">
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Deadline To</label>
+                            <input type="date" id="filterDateTo" data-filter="deadlineTo">
+                        </div>
+
+                        <!-- Article Name Filter -->
+                        <div class="filter-group">
+                            <label>Article Name</label>
+                            <input type="text" id="filterArticleName" data-filter="articleName" placeholder="Search articles...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table Container -->
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table class="data-table" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th class="sortable" data-sort="orderNumber">Order #</th>
+                                <th class="sortable" data-sort="page">Page</th>
+                                <th class="sortable" data-sort="offerID">Offer ID</th>
+                                <th class="sortable" data-sort="offerName">Offer Name</th>
+                                <th class="sortable" data-sort="group">Group</th>
+                                <th class="sortable" data-sort="type">Type</th>
+                                <th class="sortable" data-sort="photoReference">Photo Ref</th>
+                                <th>File Ref</th>
+                                <th class="sortable" data-sort="photographer">Photographer</th>
+                                <th class="sortable" data-sort="principle">Principle</th>
+                                <th>Preview</th>
+                                <th>Dialog</th>
+                                <th>Alert</th>
+                                <th>PM Link</th>
+                                <th class="sortable" data-sort="status">Status</th>
+                                <th class="sortable" data-sort="costCenter">Cost Center</th>
+                                <th class="sortable" data-sort="articleNo">Article #</th>
+                                <th class="sortable" data-sort="articleName">Article Name</th>
+                                <th class="sortable" data-sort="purchasingGroup">Purchase Group</th>
+                                <th class="sortable" data-sort="contentType">Content Type</th>
+                                <th class="sortable" data-sort="samShotType">SAM Shot</th>
+                                <th class="sortable" data-sort="activity">Activity</th>
+                                <th>Combined</th>
+                                <th>Briefing</th>
+                                <th class="sortable" data-sort="sampleDelivery">Sample Delivery</th>
+                                <th class="sortable" data-sort="deadline">Deadline</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Table rows will be dynamically generated -->
+                            <tr>
+                                <td colspan="28" style="text-align: center; padding: 40px; color: #7f8c8d;">
+                                    <div>Loading orders...</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-bar">
+                <div class="pagination-info">
+                    Showing <span id="showingStart">0</span> to <span id="showingEnd">0</span> of <span id="totalFiltered">0</span> orders
+                </div>
+                <div class="pagination-controls">
+                    <button class="page-btn" id="prevPage" disabled>← Previous</button>
+                    <div id="pageNumbers" class="page-numbers"></div>
+                    <button class="page-btn" id="nextPage">Next →</button>
+                </div>
+                <div class="pagination-size">
+                    <label>Per page:</label>
+                    <select id="pageSize">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Order Details -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Order Details</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="orderModalBody">
+                <!-- Order details will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts (Load in specific order) -->
+    <!-- 1. Services -->
+    <script src="js/auth.service.js"></script>
+    <script src="js/api.service.js"></script>
+    
+    <!-- 2. Mock Data Generator (from efficient-pro.js) -->
+    <script src="efficient-pro.js"></script>
+    
+    <!-- 3. Main Application -->
+    <script src="js/app.main.js"></script>
+
+    <!-- Development Console Info -->
+    <script>
+        if (AppConfig.debug.enabled) {
+            console.log('%c==============================================', 'color: #3498db');
+            console.log('%c  Photo Order Management System', 'font-size: 18px; font-weight: bold; color: #2c3e50');
+            console.log('%c  Version: ' + AppConfig.app.version, 'color: #27ae60');
+            console.log('%c  Environment: ' + AppConfig.app.environment, 'color: #e74c3c');
+            console.log('%c  Authentication: ' + (AppConfig.auth.enabled ? 'Enabled' : 'Disabled'), 'color: #f39c12');
+            console.log('%c==============================================', 'color: #3498db');
+            console.log('');
+            console.log('%cAvailable Commands:', 'font-weight: bold');
+            console.log('  app.refresh() - Refresh data');
+            console.log('  app.exportData() - Export to CSV');
+            console.log('  authService.logout() - Logout (if auth enabled)');
+            console.log('  apiService.clearAllData() - Clear all data');
+            console.log('');
+        }
+
+        // Helper function to close modal
+        function closeModal() {
+            document.getElementById('orderModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

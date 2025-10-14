@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Order Management - Efficient Pro</title>
+    <link rel="stylesheet" href="efficient-pro.css">
+</head>
+<body>
+    <div class="efficient-pro-layout">
+        <!-- Compact Sidebar -->
+        <aside class="sidebar-compact">
+            <div class="logo-compact">CO</div>
+            <nav class="nav-icons">
+                <button class="nav-icon active" title="Dashboard" data-view="dashboard">📊</button>
+                <button class="nav-icon" title="Orders" data-view="orders">📋</button>
+                <button class="nav-icon" title="Photographers">📸</button>
+                <button class="nav-icon" title="Studios">🏢</button>
+                <button class="nav-icon" title="Analytics">📈</button>
+                <button class="nav-icon" title="Reports">📄</button>
+                <button class="nav-icon" title="Settings">⚙️</button>
+            </nav>
+            <button class="nav-icon user-icon" title="Admin User">👤</button>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-efficient-pro">
+            <!-- Top Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <h1>Photo Order Management</h1>
+                    <span class="view-label">Comprehensive View</span>
+                </div>
+                <div class="toolbar-right">
+                    <input type="search" class="search-box" id="globalSearch" placeholder="Search across all fields...">
+                    <button class="tool-btn" id="exportBtn">📊 Export</button>
+                    <button class="tool-btn" id="refreshBtn">🔄 Refresh</button>
+                    <button class="tool-btn" id="scanManagementBtn">📦 Sample Management</button>
+                    <button class="tool-btn primary" id="newOrderBtn">+ New Order</button>
+                </div>
+            </div>
+
+            <!-- Metrics Bar -->
+            <div class="metrics-bar">
+                <div class="metric">
+                    <span class="metric-icon">📋</span>
+                    <div>
+                        <span class="metric-label">Total Orders</span>
+                        <span class="metric-value" id="totalOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">⏳</span>
+                    <div>
+                        <span class="metric-label">Pending</span>
+                        <span class="metric-value" id="pendingOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">🔄</span>
+                    <div>
+                        <span class="metric-label">In Progress</span>
+                        <span class="metric-value" id="progressOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">✅</span>
+                    <div>
+                        <span class="metric-label">Completed</span>
+                        <span class="metric-value" id="completedOrders">0</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-icon">⚠️</span>
+                    <div>
+                        <span class="metric-label">Alerts</span>
+                        <span class="metric-value alert" id="alertOrders">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Panel -->
+            <div class="filter-panel" id="filterPanel">
+                <div class="filter-header">
+                    <h3>🔍 Filters</h3>
+                    <div class="filter-actions">
+                        <button class="filter-btn" id="applyFilters">Apply</button>
+                        <button class="filter-btn secondary" id="clearFilters">Clear All</button>
+                        <button class="filter-btn icon" id="toggleFilters">▼</button>
+                    </div>
+                </div>
+                <div class="filter-content" id="filterContent">
+                    <div class="filter-grid">
+                        <!-- Status Filter -->
+                        <div class="filter-group">
+                            <label>Status</label>
+                            <select id="filterStatus" multiple>
+                                <option value="">All</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+
+                        <!-- Group Filter -->
+                        <div class="filter-group">
+                            <label>Group</label>
+                            <select id="filterGroup">
+                                <option value="">All</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Product">Product</option>
+                                <option value="Event">Event</option>
+                                <option value="Editorial">Editorial</option>
+                            </select>
+                        </div>
+
+                        <!-- Type Filter -->
+                        <div class="filter-group">
+                            <label>Type</label>
+                            <select id="filterType">
+                                <option value="">All</option>
+                                <option value="Portrait">Portrait</option>
+                                <option value="Product">Product</option>
+                                <option value="Landscape">Landscape</option>
+                                <option value="Macro">Macro</option>
+                                <option value="Studio">Studio</option>
+                            </select>
+                        </div>
+
+                        <!-- Photographer Filter -->
+                        <div class="filter-group">
+                            <label>Photographer/Method</label>
+                            <select id="filterPhotographer">
+                                <option value="">All</option>
+                                <option value="Sarah Johnson">Sarah Johnson</option>
+                                <option value="Mike Chen">Mike Chen</option>
+                                <option value="Emma Davis">Emma Davis</option>
+                                <option value="Photo Box">Photo Box</option>
+                                <option value="Generative AI">Generative AI</option>
+                                <option value="Post-Processing">Post-Processing</option>
+                            </select>
+                        </div>
+
+                        <!-- Content Type Filter -->
+                        <div class="filter-group">
+                            <label>Content Type</label>
+                            <select id="filterContentType">
+                                <option value="">All</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Editorial">Editorial</option>
+                                <option value="E-commerce">E-commerce</option>
+                                <option value="Social Media">Social Media</option>
+                            </select>
+                        </div>
+
+                        <!-- Date Range Filter -->
+                        <div class="filter-group">
+                            <label>Deadline From</label>
+                            <input type="date" id="filterDateFrom">
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Deadline To</label>
+                            <input type="date" id="filterDateTo">
+                        </div>
+
+                        <!-- Alert Filter -->
+                        <div class="filter-group">
+                            <label>Show Alerts Only</label>
+                            <input type="checkbox" id="filterAlerts">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table Container -->
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table class="data-table" id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-column="orderNumber">
+                                    <input type="checkbox" id="selectAll">
+                                </th>
+                                <th class="sortable" data-column="orderNumber">Order #</th>
+                                <th class="sortable" data-column="page">Page</th>
+                                <th class="sortable" data-column="offerID">Offer ID</th>
+                                <th class="sortable" data-column="offerName">Offer Name</th>
+                                <th class="sortable" data-column="group">Group</th>
+                                <th class="sortable" data-column="type">Type</th>
+                                <th class="sortable" data-column="photoReference">Photo Ref</th>
+                                <th class="sortable" data-column="photographer">Photographer/Method</th>
+                                <th class="sortable" data-column="principle">Principle</th>
+                                <th class="sortable" data-column="costCenter">Cost Center</th>
+                                <th class="sortable" data-column="articleNo">Article No</th>
+                                <th class="sortable" data-column="articleName">Article Name</th>
+                                <th class="sortable" data-column="purchasingGroup">Purchasing Group</th>
+                                <th class="sortable" data-column="contentType">Content Type</th>
+                                <th class="sortable" data-column="samShotType">SAM Shot Type</th>
+                                <th class="sortable" data-column="activity">Activity</th>
+                                <th class="sortable" data-column="combinedPhoto">Combined</th>
+                                <th class="sortable" data-column="deadline">Deadline</th>
+                                <th class="sortable" data-column="sampleReceived">Sample Status</th>
+                                <th class="sortable" data-column="fileName">File Name</th>
+                                <th class="sortable" data-column="uploadTime">Upload Time</th>
+                                <th class="sortable" data-column="pmLink">PM Link</th>
+                                <th>Preview</th>
+                                <th class="sortable" data-column="alert">Alert</th>
+                                <th class="sortable" data-column="status">Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Rows will be dynamically generated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-info">
+                    Showing <span id="showingFrom">0</span> to <span id="showingTo">0</span> of <span id="totalRecords">0</span> records
+                </div>
+                <div class="pagination-controls">
+                    <button class="page-btn" id="firstPage">«</button>
+                    <button class="page-btn" id="prevPage">‹</button>
+                    <span class="page-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+                    <button class="page-btn" id="nextPage">›</button>
+                    <button class="page-btn" id="lastPage">»</button>
+                    <select id="pageSize" class="page-size">
+                        <option value="10">10 per page</option>
+                        <option value="25" selected>25 per page</option>
+                        <option value="50">50 per page</option>
+                        <option value="100">100 per page</option>
+                    </select>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Order Details -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Order Details</h2>
+                <button class="close-btn" id="closeModal">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Details will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="modalClose">Close</button>
+                <button class="modal-btn primary" id="modalSave">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Sample Management Scanning -->
+    <div class="modal" id="scanModal">
+        <div class="modal-content scan-modal-content">
+            <div class="modal-header">
+                <h2>📦 Sample Management - Article Scanning</h2>
+                <button class="close-btn" id="closeScanModal">×</button>
+            </div>
+            <div class="modal-body" id="scanModalBody">
+                <div class="scan-section">
+                    <div class="scan-instructions">
+                        <h3>📋 Instructions</h3>
+                        <p>Scan or enter the Order Number to track article movement:</p>
+                        <ul>
+                            <li><strong>First Scan:</strong> Article received by photographer</li>
+                            <li><strong>Second Scan:</strong> Article shipped back to HQ</li>
+                        </ul>
+                    </div>
+
+                    <div class="scan-input-section">
+                        <form id="scanForm">
+                            <div class="scan-input-group">
+                                <label for="scanInput">Order Number / Barcode</label>
+                                <input 
+                                    type="text" 
+                                    id="scanInput" 
+                                    class="scan-input" 
+                                    placeholder="Scan barcode or type Order Number (e.g., ORD-2001)"
+                                    autocomplete="off"
+                                    autofocus
+                                >
+                            </div>
+                            <button type="submit" class="scan-btn">🔍 Scan / Process</button>
+                        </form>
+                        <div id="scanFeedback" class="scan-feedback"></div>
+                    </div>
+
+                    <div class="scan-stats">
+                        <div class="scan-stat">
+                            <span class="scan-stat-label">Total Scanned Today</span>
+                            <span class="scan-stat-value" id="totalScanned">0</span>
+                        </div>
+                        <div class="scan-stat">
+                            <span class="scan-stat-label">With Photographer</span>
+                            <span class="scan-stat-value" id="withPhotographer">0</span>
+                        </div>
+                        <div class="scan-stat">
+                            <span class="scan-stat-label">Returned to HQ</span>
+                            <span class="scan-stat-value" id="returnedToHQ">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scan-history-section">
+                    <div class="section-header">
+                        <h3>📊 Recent Scans</h3>
+                        <button class="filter-btn secondary" id="clearScanHistory">Clear History</button>
+                    </div>
+                    <div class="scan-table-wrapper">
+                        <table class="scan-table">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Article</th>
+                                    <th>Status</th>
+                                    <th>Received Date</th>
+                                    <th>Return Date</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scanTableBody">
+                                <!-- Scan history will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="closeScanModalBtn">Close</button>
+                <button class="modal-btn" id="exportScanHistory">📥 Export Scan History</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="efficient-pro.js"></script>
+</body>
+</html>

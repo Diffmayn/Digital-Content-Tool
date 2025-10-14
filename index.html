@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Order Management - UI Comparison</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <h2>🎨 UI Theme Selector</h2>
+        <div class="theme-buttons">
+            <button class="theme-btn active" data-theme="minimalistic">Minimalistic</button>
+            <button class="theme-btn" data-theme="modern">Modern</button>
+            <button class="theme-btn" data-theme="efficient">Efficient</button>
+            <button class="theme-btn" data-theme="complex">Complex & Detailed</button>
+            <button class="theme-btn" data-theme="creative">Creative & Bold</button>
+            <button class="theme-btn" data-theme="data">Data-Driven</button>
+            <button class="theme-btn" data-theme="dark">Dark Mode Pro</button>
+            <button class="theme-btn" data-theme="kanban">Workflow Kanban</button>
+        </div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div id="app" class="app-container theme-minimalistic">
+        
+        <!-- MINIMALISTIC THEME -->
+        <div class="theme-content" data-theme="minimalistic">
+            <header class="app-header">
+                <h1>Content Orders</h1>
+                <div class="header-actions">
+                    <span class="user-info">Admin User</span>
+                </div>
+            </header>
+
+            <div class="main-content">
+                <div class="sidebar">
+                    <nav class="nav-menu">
+                        <a href="#" class="nav-item active">Dashboard</a>
+                        <a href="#" class="nav-item">Orders</a>
+                        <a href="#" class="nav-item">Photographers</a>
+                        <a href="#" class="nav-item">Studios</a>
+                        <a href="#" class="nav-item">Settings</a>
+                    </nav>
+                </div>
+
+                <div class="content-area">
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Active Orders</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">16</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+
+                    <div class="orders-section">
+                        <div class="section-header">
+                            <h2>Recent Orders</h2>
+                            <button class="btn-primary">New Order</button>
+                        </div>
+                        <div class="orders-list" id="orders-minimalistic"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODERN THEME -->
+        <div class="theme-content" data-theme="modern" style="display: none;">
+            <header class="app-header">
+                <div class="header-left">
+                    <div class="logo">📸 ContentFlow</div>
+                    <nav class="top-nav">
+                        <a href="#" class="nav-link active">Dashboard</a>
+                        <a href="#" class="nav-link">Orders</a>
+                        <a href="#" class="nav-link">Team</a>
+                        <a href="#" class="nav-link">Analytics</a>
+                    </nav>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn">🔔</button>
+                    <button class="icon-btn">⚙️</button>
+                    <div class="user-avatar">A</div>
+                </div>
+            </header>
+
+            <div class="modern-layout">
+                <div class="hero-section">
+                    <h1>Welcome back, Admin</h1>
+                    <p>Here's what's happening with your orders today</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="grid-card">
+                        <div class="card-icon">📊</div>
+                        <h3>Total Orders</h3>
+                        <div class="card-value">24</div>
+                        <div class="card-trend">↑ 12% from last week</div>
+                    </div>
+                    <div class="grid-card">
+                        <div class="card-icon">⏳</div>
+                        <h3>In Progress</h3>
+                        <div class="card-value">8</div>
+                        <div class="card-trend">3 urgent</div>
+                    </div>
+                    <div class="grid-card">
+                        <div class="card-icon">✅</div>
+                        <h3>Completed</h3>
+                        <div class="card-value">16</div>
+                        <div class="card-trend">↑ 8 this week</div>
+                    </div>
+                    <div class="grid-card">
+                        <div class="card-icon">👥</div>
+                        <h3>Active Team</h3>
+                        <div class="card-value">12</div>
+                        <div class="card-trend">Photographers & Studios</div>
+                    </div>
+                </div>
+
+                <div class="orders-container">
+                    <div class="section-title">
+                        <h2>Active Orders</h2>
+                        <button class="btn-modern">+ New Order</button>
+                    </div>
+                    <div class="orders-grid" id="orders-modern"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EFFICIENT THEME -->
+        <div class="theme-content" data-theme="efficient" style="display: none;">
+            <div class="efficient-layout">
+                <aside class="sidebar-compact">
+                    <div class="logo-compact">CO</div>
+                    <nav class="nav-icons">
+                        <button class="nav-icon active" title="Dashboard">📊</button>
+                        <button class="nav-icon" title="Orders">📋</button>
+                        <button class="nav-icon" title="Photographers">📸</button>
+                        <button class="nav-icon" title="Studios">🏢</button>
+                        <button class="nav-icon" title="Settings">⚙️</button>
+                    </nav>
+                    <button class="nav-icon user-icon">👤</button>
+                </aside>
+
+                <main class="main-efficient">
+                    <div class="toolbar">
+                        <input type="search" class="search-box" placeholder="Search orders, photographers...">
+                        <button class="tool-btn">Filter</button>
+                        <button class="tool-btn">Sort</button>
+                        <button class="tool-btn primary">+ New</button>
+                    </div>
+
+                    <div class="metrics-bar">
+                        <div class="metric">
+                            <span class="metric-label">Active:</span>
+                            <span class="metric-value">24</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Pending:</span>
+                            <span class="metric-value">8</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Completed:</span>
+                            <span class="metric-value">16</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Team:</span>
+                            <span class="metric-value">12</span>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table" id="orders-efficient"></table>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- COMPLEX & DETAILED THEME -->
+        <div class="theme-content" data-theme="complex" style="display: none;">
+            <div class="complex-layout">
+                <header class="complex-header">
+                    <div class="header-section">
+                        <h1 class="brand">Content Order Management System</h1>
+                        <div class="breadcrumb">Home / Dashboard / Order Management</div>
+                    </div>
+                    <div class="header-actions-complex">
+                        <input type="search" placeholder="Global Search..." class="global-search">
+                        <button class="action-btn">Export</button>
+                        <button class="action-btn">Reports</button>
+                        <button class="action-btn notifications">🔔 <span class="badge">3</span></button>
+                        <div class="user-menu-complex">
+                            <img src="https://via.placeholder.com/40" alt="User" class="user-img">
+                            <div>
+                                <div class="user-name">Admin User</div>
+                                <div class="user-role">System Administrator</div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="complex-body">
+                    <nav class="sidebar-complex">
+                        <div class="nav-section">
+                            <div class="nav-section-title">MAIN</div>
+                            <a href="#" class="nav-item-complex active">
+                                <span class="icon">📊</span>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="#" class="nav-item-complex">
+                                <span class="icon">📋</span>
+                                <span>All Orders</span>
+                                <span class="count">24</span>
+                            </a>
+                        </div>
+                        <div class="nav-section">
+                            <div class="nav-section-title">RESOURCES</div>
+                            <a href="#" class="nav-item-complex">
+                                <span class="icon">📸</span>
+                                <span>Photographers</span>
+                            </a>
+                            <a href="#" class="nav-item-complex">
+                                <span class="icon">🏢</span>
+                                <span>Studios</span>
+                            </a>
+                            <a href="#" class="nav-item-complex">
+                                <span class="icon">🖼️</span>
+                                <span>Content Library</span>
+                            </a>
+                        </div>
+                        <div class="nav-section">
+                            <div class="nav-section-title">MANAGEMENT</div>
+                            <a href="#" class="nav-item-complex">
+                                <span class="icon">👥</span>
+                                <span>User Management</span>
+                            </a>
+                            <a href="#" class="nav-item-complex">
+                                <span class="icon">📈</span>
+                                <span>Analytics</span>
+                            </a>
+                            <a href="#" class="nav-item-complex">
+                                <span class="icon">⚙️</span>
+                                <span>Settings</span>
+                            </a>
+                        </div>
+                    </nav>
+
+                    <main class="content-complex">
+                        <div class="dashboard-header">
+                            <h2>Dashboard Overview</h2>
+                            <div class="dashboard-controls">
+                                <select class="filter-select">
+                                    <option>Last 7 Days</option>
+                                    <option>Last 30 Days</option>
+                                    <option>Last Quarter</option>
+                                </select>
+                                <button class="btn-complex primary">Create New Order</button>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid-complex">
+                            <div class="stat-card-complex">
+                                <div class="stat-header">
+                                    <span class="stat-icon blue">📋</span>
+                                    <span class="stat-change positive">+12%</span>
+                                </div>
+                                <div class="stat-number">24</div>
+                                <div class="stat-title">Total Orders</div>
+                                <div class="stat-footer">Active in system</div>
+                            </div>
+                            <div class="stat-card-complex">
+                                <div class="stat-header">
+                                    <span class="stat-icon orange">⏳</span>
+                                    <span class="stat-change">8 active</span>
+                                </div>
+                                <div class="stat-number">8</div>
+                                <div class="stat-title">Pending Orders</div>
+                                <div class="stat-footer">Awaiting assignment</div>
+                            </div>
+                            <div class="stat-card-complex">
+                                <div class="stat-header">
+                                    <span class="stat-icon green">✅</span>
+                                    <span class="stat-change positive">+8</span>
+                                </div>
+                                <div class="stat-number">16</div>
+                                <div class="stat-title">Completed</div>
+                                <div class="stat-footer">This week</div>
+                            </div>
+                            <div class="stat-card-complex">
+                                <div class="stat-header">
+                                    <span class="stat-icon purple">👥</span>
+                                    <span class="stat-change">100% active</span>
+                                </div>
+                                <div class="stat-number">12</div>
+                                <div class="stat-title">Team Members</div>
+                                <div class="stat-footer">8 photographers, 4 studios</div>
+                            </div>
+                        </div>
+
+                        <div class="complex-panels">
+                            <div class="panel-complex orders-panel">
+                                <div class="panel-header">
+                                    <h3>Order Management</h3>
+                                    <div class="panel-actions">
+                                        <button class="icon-btn-complex">🔍</button>
+                                        <button class="icon-btn-complex">↓</button>
+                                        <button class="icon-btn-complex">⋮</button>
+                                    </div>
+                                </div>
+                                <div class="panel-tabs">
+                                    <button class="tab active">All Orders</button>
+                                    <button class="tab">Pending</button>
+                                    <button class="tab">In Progress</button>
+                                    <button class="tab">Completed</button>
+                                </div>
+                                <div class="panel-content" id="orders-complex"></div>
+                            </div>
+
+                            <div class="panel-complex activity-panel">
+                                <div class="panel-header">
+                                    <h3>Recent Activity</h3>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="activity-item">
+                                        <div class="activity-icon">📸</div>
+                                        <div class="activity-details">
+                                            <div class="activity-title">Sarah Johnson uploaded images</div>
+                                            <div class="activity-time">2 minutes ago</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon">✅</div>
+                                        <div class="activity-details">
+                                            <div class="activity-title">Order #1002 completed</div>
+                                            <div class="activity-time">15 minutes ago</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon">📋</div>
+                                        <div class="activity-details">
+                                            <div class="activity-title">New order created by Admin</div>
+                                            <div class="activity-time">1 hour ago</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon">👤</div>
+                                        <div class="activity-details">
+                                            <div class="activity-title">Mike Chen assigned to Order #1003</div>
+                                            <div class="activity-time">2 hours ago</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+
+        <!-- CREATIVE & BOLD THEME -->
+        <div class="theme-content" data-theme="creative" style="display: none;">
+            <div class="creative-layout">
+                <aside class="sidebar-creative">
+                    <div class="logo-creative">
+                        <div class="logo-icon">🎨</div>
+                        <div class="logo-text">ContentHub</div>
+                    </div>
+                    <nav class="nav-creative">
+                        <a href="#" class="nav-item-creative active">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                        <a href="#" class="nav-item-creative">
+                            <span class="nav-icon">📦</span>
+                            <span class="nav-text">Orders</span>
+                            <span class="badge-creative">24</span>
+                        </a>
+                        <a href="#" class="nav-item-creative">
+                            <span class="nav-icon">📸</span>
+                            <span class="nav-text">Creators</span>
+                        </a>
+                        <a href="#" class="nav-item-creative">
+                            <span class="nav-icon">🎬</span>
+                            <span class="nav-text">Studios</span>
+                        </a>
+                        <a href="#" class="nav-item-creative">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-text">Insights</span>
+                        </a>
+                    </nav>
+                    <div class="sidebar-footer">
+                        <div class="user-profile-creative">
+                            <div class="profile-avatar">A</div>
+                            <div class="profile-info">
+                                <div class="profile-name">Admin</div>
+                                <div class="profile-status">● Online</div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <main class="main-creative">
+                    <header class="header-creative">
+                        <div class="header-content">
+                            <h1 class="page-title">Dashboard</h1>
+                            <p class="page-subtitle">Manage your content orders with style</p>
+                        </div>
+                        <div class="header-actions-creative">
+                            <button class="btn-creative secondary">🔔 Notifications</button>
+                            <button class="btn-creative primary">✨ New Order</button>
+                        </div>
+                    </header>
+
+                    <div class="cards-creative">
+                        <div class="card-creative gradient-blue">
+                            <div class="card-creative-icon">🚀</div>
+                            <div class="card-creative-content">
+                                <h3>Active Projects</h3>
+                                <div class="card-creative-value">24</div>
+                                <div class="card-creative-info">↗️ 12% increase</div>
+                            </div>
+                        </div>
+                        <div class="card-creative gradient-orange">
+                            <div class="card-creative-icon">⏰</div>
+                            <div class="card-creative-content">
+                                <h3>Pending Review</h3>
+                                <div class="card-creative-value">8</div>
+                                <div class="card-creative-info">Needs attention</div>
+                            </div>
+                        </div>
+                        <div class="card-creative gradient-green">
+                            <div class="card-creative-icon">🎉</div>
+                            <div class="card-creative-content">
+                                <h3>Delivered</h3>
+                                <div class="card-creative-value">16</div>
+                                <div class="card-creative-info">This week</div>
+                            </div>
+                        </div>
+                        <div class="card-creative gradient-purple">
+                            <div class="card-creative-icon">👥</div>
+                            <div class="card-creative-content">
+                                <h3>Team Power</h3>
+                                <div class="card-creative-value">12</div>
+                                <div class="card-creative-info">All hands on deck</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="orders-section-creative">
+                        <div class="section-header-creative">
+                            <h2>📋 Your Orders</h2>
+                            <div class="filter-pills">
+                                <button class="pill active">All</button>
+                                <button class="pill">Pending</button>
+                                <button class="pill">Active</button>
+                                <button class="pill">Done</button>
+                            </div>
+                        </div>
+                        <div class="orders-creative-grid" id="orders-creative"></div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- DATA-DRIVEN THEME -->
+        <div class="theme-content" data-theme="data" style="display: none;">
+            <div class="data-layout">
+                <aside class="data-sidebar">
+                    <div class="data-logo">📈 OrderIQ</div>
+                    <div class="data-filters">
+                        <label>Order Status</label>
+                        <select>
+                            <option>All</option>
+                            <option>Pending</option>
+                            <option>In Progress</option>
+                            <option>Completed</option>
+                        </select>
+                        <label>Priority</label>
+                        <select>
+                            <option>All</option>
+                            <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+                        </select>
+                        <label>Time Range</label>
+                        <select>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                            <option>Quarter</option>
+                        </select>
+                    </div>
+                    <div class="data-metrics">
+                        <div><span>Total Orders</span><strong>24</strong></div>
+                        <div><span>Avg. Turnaround</span><strong>3.2d</strong></div>
+                        <div><span>Revenue Impact</span><strong>$84k</strong></div>
+                    </div>
+                </aside>
+                <main class="data-main">
+                    <header class="data-header">
+                        <div>
+                            <h1>Analytics Command Center</h1>
+                            <p>Data-backed insights to manage your content pipelines.</p>
+                        </div>
+                        <button class="data-btn">Generate Report</button>
+                    </header>
+                    <section class="data-widgets">
+                        <div class="data-chart" id="chart-status">
+                            <h3>Status Distribution</h3>
+                            <div class="chart-placeholder">Circular chart placeholder</div>
+                        </div>
+                        <div class="data-chart" id="chart-timeline">
+                            <h3>Delivery Timeline</h3>
+                            <div class="chart-placeholder">Timeline chart placeholder</div>
+                        </div>
+                        <div class="data-chart" id="chart-performance">
+                            <h3>Performance KPIs</h3>
+                            <div class="chart-placeholder">Bar chart placeholder</div>
+                        </div>
+                    </section>
+                    <section class="data-table-section">
+                        <div class="section-header">
+                            <h2>Operational Snapshot</h2>
+                            <button class="data-btn secondary">Download CSV</button>
+                        </div>
+                        <div class="data-grid" id="orders-data"></div>
+                    </section>
+                </main>
+            </div>
+        </div>
+
+        <!-- DARK MODE PRO THEME -->
+        <div class="theme-content" data-theme="dark" style="display: none;">
+            <div class="dark-layout">
+                <header class="dark-header">
+                    <div class="dark-brand">⚡ NightOps</div>
+                    <div class="dark-controls">
+                        <input type="search" placeholder="Search everything...">
+                        <button>Alerts</button>
+                        <button>Automation</button>
+                        <div class="dark-user">Admin ▾</div>
+                    </div>
+                </header>
+                <div class="dark-body">
+                    <aside class="dark-side">
+                        <h3>Workspaces</h3>
+                        <ul>
+                            <li class="active">Mission Control</li>
+                            <li>Delivery Queue</li>
+                            <li>Quality Review</li>
+                            <li>Asset Vault</li>
+                        </ul>
+                        <h3>Quick Actions</h3>
+                        <div class="dark-actions">
+                            <button>+ Order</button>
+                            <button>Schedule</button>
+                            <button>Templates</button>
+                        </div>
+                        <h3>Signal Feed</h3>
+                        <div class="dark-feed" id="dark-feed"></div>
+                    </aside>
+                    <main class="dark-main">
+                        <section class="dark-stats" id="dark-stats"></section>
+                        <section class="dark-panels">
+                            <div class="dark-panel">
+                                <header>
+                                    <h2>Active Orders</h2>
+                                    <button>View All</button>
+                                </header>
+                                <div class="dark-order-list" id="orders-dark"></div>
+                            </div>
+                            <div class="dark-panel">
+                                <header>
+                                    <h2>Capacity Monitor</h2>
+                                    <button>Adjust</button>
+                                </header>
+                                <div class="dark-capacity" id="dark-capacity"></div>
+                            </div>
+                        </section>
+                    </main>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORKFLOW KANBAN THEME -->
+        <div class="theme-content" data-theme="kanban" style="display: none;">
+            <div class="kanban-layout">
+                <header class="kanban-header">
+                    <div>
+                        <h1>Workflow Board</h1>
+                        <p>Drag-and-drop orders to reflect real-time progress.</p>
+                    </div>
+                    <div class="kanban-controls">
+                        <button class="kanban-btn">Add Order</button>
+                        <button class="kanban-btn secondary">Automation Rules</button>
+                    </div>
+                </header>
+                <div class="kanban-board" id="kanban-board">
+                    <div class="kanban-column" data-status="pending">
+                        <header>Pending <span class="count">0</span></header>
+                        <div class="kanban-column-body"></div>
+                    </div>
+                    <div class="kanban-column" data-status="progress">
+                        <header>In Progress <span class="count">0</span></header>
+                        <div class="kanban-column-body"></div>
+                    </div>
+                    <div class="kanban-column" data-status="completed">
+                        <header>Completed <span class="count">0</span></header>
+                        <div class="kanban-column-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
