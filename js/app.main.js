@@ -197,7 +197,7 @@ class PhotoOrderApp {
         const ordersToShow = this.filteredOrders.slice(start, end);
 
         if (ordersToShow.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="29" style="text-align: center; padding: 40px; color: #7f8c8d;">No orders found</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="13" style="text-align: center; padding: 40px; color: #7f8c8d;">No orders found</td></tr>';
             this.updatePagination();
             return;
         }
@@ -207,42 +207,29 @@ class PhotoOrderApp {
     }
 
     /**
-     * Render single order row
+     * Render single order row (parent) with expandable articles (children)
      */
     renderOrderRow(order) {
-        const alertClass = order.alert !== 'none' ? `alert-${order.alert}` : '';
-        const eventDecoded = order.event ? this.decodeEventCode(order.event) : '';
+        const hasArticles = order.articles && order.articles.length > 0;
+        const expandIcon = hasArticles ? '▶' : '';
+        const rowId = `order-${order.orderNumber}`;
         
-        return `
-            <tr class="${alertClass}" data-order-id="${order.orderNumber}">
-                <td><input type="checkbox" class="row-checkbox" data-order="${order.orderNumber}"></td>
+        let html = `
+            <tr class="parent-row" data-order-id="${order.orderNumber}" data-row-id="${rowId}">
+                <td class="expand-cell" onclick="app.toggleArticles('${rowId}')">
+                    ${hasArticles ? `<span class="expand-icon" id="icon-${rowId}">${expandIcon}</span>` : ''}
+                </td>
                 <td><a href="#" class="order-link" onclick="app.viewOrderDetails('${order.orderNumber}'); return false;">${order.orderNumber}</a></td>
                 <td>${order.page || ''}</td>
-                <td>${order.offerID || ''}</td>
-                <td>${order.offerName || ''}</td>
-                <td><span class="event-badge" title="${eventDecoded}">${order.event || ''}</span></td>
+                <td><strong>${order.offerID || ''}</strong></td>
                 <td><span class="badge">${order.group || ''}</span></td>
+                <td>${order.offerName || ''}</td>
                 <td><span class="type-badge">${order.type || ''}</span></td>
-                <td><code class="ref-code">${order.photoReference || ''}</code></td>
-                <td>${order.fileReference ? `<a href="#" class="file-link">📁 View</a>` : ''}</td>
                 <td><span class="photographer-badge">${order.photographer || ''}</span></td>
                 <td>${order.principle || ''}</td>
                 <td>${order.preview ? `<img src="${order.preview}" alt="Preview" class="preview-thumb" onclick="app.viewImage('${order.preview}')">` : ''}</td>
                 <td><button class="comment-btn" onclick="app.viewComments('${order.orderNumber}')" title="${order.comments || 0} comments">💬 ${order.comments || 0}</button></td>
-                <td class="alert-cell">${this.getAlertIcon(order.alert)}</td>
-                <td>${order.pmLink || ''}</td>
                 <td><span class="status-badge status-${(order.status || 'pending').toLowerCase().replace(' ', '-')}">${order.status || 'Pending'}</span></td>
-                <td>${order.costCenter || ''}</td>
-                <td><code>${order.articleNo || ''}</code></td>
-                <td><strong>${order.articleName || ''}</strong></td>
-                <td><span class="purchase-group-badge">${order.purchasingGroup || ''}</span></td>
-                <td>${order.contentType || ''}</td>
-                <td>${order.samShotType || ''}</td>
-                <td><code class="activity-code">${order.activity || ''}</code></td>
-                <td>${order.combinedPhoto ? '<span class="yes-badge">Yes</span>' : '<span class="no-badge">No</span>'}</td>
-                <td><button class="briefing-btn" onclick="app.viewBriefing('${order.orderNumber}')">📄 View</button></td>
-                <td>${order.sampleDelivery || ''}</td>
-                <td class="${this.getDeadlineClass(order.deadline)}">${order.deadline || ''}</td>
                 <td>
                     <div class="action-cell">
                         ${this.renderActions(order)}
@@ -250,6 +237,64 @@ class PhotoOrderApp {
                 </td>
             </tr>
         `;
+        
+        // Add child article rows
+        if (hasArticles) {
+            order.articles.forEach((article, index) => {
+                html += this.renderArticleRow(article, order.orderNumber, rowId, index);
+            });
+        }
+        
+        return html;
+    }
+
+    /**
+     * Render article child row
+     */
+    renderArticleRow(article, orderNumber, parentRowId, index) {
+        return `
+            <tr class="child-row" data-parent-row="${parentRowId}" style="display: none;">
+                <td></td>
+                <td colspan="2" style="padding-left: 40px;"><code>${article.imageRequestID || ''}</code></td>
+                <td><code>${article.articleNo || ''}</code></td>
+                <td>${article.unitOfMeasure || ''}</td>
+                <td><strong>${article.articleName || ''}</strong></td>
+                <td>${article.netContent || ''}</td>
+                <td colspan="2">${article.purchasingGroup || ''}</td>
+                <td>${article.preview ? `<img src="${article.preview}" alt="Preview" class="preview-thumb" onclick="app.viewImage('${article.preview}')">` : ''}</td>
+                <td><button class="comment-btn" onclick="app.viewComments('${article.imageRequestID}')" title="${article.comments || 0} comments">💬 ${article.comments || 0}</button></td>
+                <td><span class="status-badge status-${(article.status || 'pending').toLowerCase().replace(' ', '-')}">${article.status || 'Pending'}</span></td>
+                <td>
+                    <div class="action-cell">
+                        <button class="action-btn view" onclick="app.viewArticleDetails('${article.imageRequestID}')" title="View">👁️</button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }
+
+    /**
+     * Toggle article visibility
+     */
+    toggleArticles(rowId) {
+        const childRows = document.querySelectorAll(`tr[data-parent-row="${rowId}"]`);
+        const icon = document.getElementById(`icon-${rowId}`);
+        const isExpanded = icon && icon.textContent === '▼';
+        
+        childRows.forEach(row => {
+            row.style.display = isExpanded ? 'none' : 'table-row';
+        });
+        
+        if (icon) {
+            icon.textContent = isExpanded ? '▶' : '▼';
+        }
+    }
+
+    /**
+     * View article details
+     */
+    viewArticleDetails(imageRequestID) {
+        alert(`Article Details: ${imageRequestID}\n\nFeature coming soon!`);
     }
 
     /**

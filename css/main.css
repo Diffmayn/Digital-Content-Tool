@@ -414,12 +414,45 @@ body {
     transition: background 0.2s;
 }
 
-.data-table tbody tr:hover {
+.data-table tbody tr.parent-row {
+    font-weight: 500;
+}
+
+.data-table tbody tr.child-row {
     background: #f8f9fa;
+    font-size: 11px;
+}
+
+.data-table tbody tr.child-row td {
+    padding: 8px 10px;
+    border-top: none;
+}
+
+.data-table tbody tr:hover {
+    background: #f0f0f0;
+}
+
+.data-table tbody tr.child-row:hover {
+    background: #e9ecef;
 }
 
 .data-table tbody tr.selected {
     background: #e3f2fd;
+}
+
+.expand-cell {
+    cursor: pointer;
+    text-align: center !important;
+    width: 30px !important;
+    font-size: 12px;
+    user-select: none;
+}
+
+.expand-icon {
+    display: inline-block;
+    transition: transform 0.2s;
+    color: #6c757d;
+    font-weight: bold;
 }
 
 .data-table td {
