@@ -489,12 +489,6 @@ body {
 
 .alert-high {
     color: #e74c3c;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
 }
 
 .preview-thumb {
