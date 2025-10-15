@@ -72,16 +72,23 @@ class PhotoOrderApp {
             searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
         }
 
-        // Filters
+        // Filters - apply in real-time
         const applyFiltersBtn = document.getElementById('applyFiltersBtn');
         if (applyFiltersBtn) {
-            applyFiltersBtn.addEventListener('click', () => this.applyAdvancedFilters());
+            // Hide the apply button since filters are now real-time
+            applyFiltersBtn.style.display = 'none';
         }
 
         const clearFiltersBtn = document.getElementById('clearFiltersBtn');
         if (clearFiltersBtn) {
             clearFiltersBtn.addEventListener('click', () => this.clearFilters());
         }
+
+        // Attach real-time filter listeners to all filter inputs
+        document.querySelectorAll('[data-filter]').forEach(input => {
+            input.addEventListener('input', () => this.applyAdvancedFilters());
+            input.addEventListener('change', () => this.applyAdvancedFilters());
+        });
 
         // Sorting - attach to sortable headers
         document.querySelectorAll('.sortable').forEach(th => {
