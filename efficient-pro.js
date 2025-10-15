@@ -1273,6 +1273,11 @@ function generateScanHistoryCSV() {
     return [headers.join(','), ...rows].join('\n');
 }
 
+// Export generateMockOrders for use in app-production.html
+if (typeof window !== 'undefined') {
+    window.generateMockOrdersForApp = generateMockOrders;
+}
+
 console.log('%c📊 Efficient Pro - Photo Order Management System', 'font-size: 16px; font-weight: bold; color: #3498db;');
 console.log('%cKeyboard Shortcuts:', 'font-weight: bold;');
 console.log('Ctrl/Cmd + K: Focus search');
