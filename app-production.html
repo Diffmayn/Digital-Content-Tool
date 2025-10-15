@@ -123,6 +123,25 @@
                             </select>
                         </div>
 
+                        <!-- Event Filter -->
+                        <div class="filter-group">
+                            <label>Event</label>
+                            <select id="filterEvent" data-filter="event">
+                                <option value="">All</option>
+                                <option value="Holiday Season 2024">Holiday Season 2024</option>
+                                <option value="Spring Launch 2025">Spring Launch 2025</option>
+                                <option value="Summer Sale 2025">Summer Sale 2025</option>
+                                <option value="Black Friday 2024">Black Friday 2024</option>
+                                <option value="Tech Expo 2024">Tech Expo 2024</option>
+                                <option value="Back to School 2025">Back to School 2025</option>
+                                <option value="Cyber Monday 2024">Cyber Monday 2024</option>
+                                <option value="Q1 Campaign 2025">Q1 Campaign 2025</option>
+                                <option value="Q2 Campaign 2025">Q2 Campaign 2025</option>
+                                <option value="Q3 Campaign 2025">Q3 Campaign 2025</option>
+                                <option value="Q4 Campaign 2024">Q4 Campaign 2024</option>
+                            </select>
+                        </div>
+
                         <!-- Type Filter -->
                         <div class="filter-group">
                             <label>Type</label>
@@ -188,6 +207,7 @@
                                 <th class="sortable" data-sort="page">Page</th>
                                 <th class="sortable" data-sort="offerID">Offer ID</th>
                                 <th class="sortable" data-sort="offerName">Offer Name</th>
+                                <th class="sortable" data-sort="event">Event</th>
                                 <th class="sortable" data-sort="group">Group</th>
                                 <th class="sortable" data-sort="type">Type</th>
                                 <th class="sortable" data-sort="photoReference">Photo Ref</th>
@@ -216,7 +236,7 @@
                         <tbody id="ordersTableBody">
                             <!-- Table rows will be dynamically generated -->
                             <tr>
-                                <td colspan="28" style="text-align: center; padding: 40px; color: #7f8c8d;">
+                                <td colspan="29" style="text-align: center; padding: 40px; color: #7f8c8d;">
                                     <div>Loading orders...</div>
                                 </td>
                             </tr>

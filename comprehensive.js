@@ -8,6 +8,7 @@ const photographers = [
 
 const groups = ['Marketing', 'Product', 'Event', 'Editorial', 'Social'];
 const types = ['Portrait', 'Product', 'Landscape', 'Macro', 'Studio', 'Lifestyle', 'Action'];
+const events = ['Holiday Season 2024', 'Spring Launch 2025', 'Summer Sale 2025', 'Black Friday 2024', 'Tech Expo 2024', 'Back to School 2025', 'Cyber Monday 2024', 'Q1 Campaign 2025', 'Q2 Campaign 2025', 'Q3 Campaign 2025', 'Q4 Campaign 2024'];
 const contentTypes = ['Marketing', 'Editorial', 'E-commerce', 'Social Media', 'Print'];
 const samShotTypes = ['Studio', 'On-location', 'Macro', 'Lifestyle', 'Environmental', '360°'];
 const activities = ['A5252052', 'A5252053', 'A5252054', 'A5252055', 'A5252056', 'A5252057', 'A5252058', 'A5252059'];

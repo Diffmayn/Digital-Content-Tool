@@ -13,6 +13,7 @@ const pages = [
 
 const groups = ['Marketing', 'Product', 'Event', 'Editorial', 'Social'];
 const types = ['Portrait', 'Product', 'Landscape', 'Macro', 'Studio', 'Lifestyle', 'Action'];
+const events = ['Holiday Season 2024', 'Spring Launch 2025', 'Summer Sale 2025', 'Black Friday 2024', 'Tech Expo 2024', 'Back to School 2025', 'Cyber Monday 2024', 'Q1 Campaign 2025', 'Q2 Campaign 2025', 'Q3 Campaign 2025', 'Q4 Campaign 2024'];
 const contentTypes = ['Marketing', 'Editorial', 'E-commerce', 'Social Media', 'Print'];
 const samShotTypes = ['Studio', 'On-location', 'Macro', 'Lifestyle', 'Environmental', '360°'];
 const activities = ['A5252052', 'A5252053', 'A5252054', 'A5252055', 'A5252056', 'A5252057', 'A5252058', 'A5252059'];
@@ -32,6 +33,7 @@ function generateSpecificOrders() {
             offerID: '1567890',
             group: 'Marketing',
             offerName: 'Christmas Campaign 2024',
+            event: 'Holiday Season 2024',
             type: 'Product',
             photoReference: 'PREF-XMAS-001',
             fileReference: 'files/christmas_campaign_001.jpg',
@@ -66,6 +68,7 @@ function generateSpecificOrders() {
             offerID: '1589234',
             group: 'Product',
             offerName: 'New Year Sale 2025',
+            event: 'Holiday Season 2024',
             type: 'Studio',
             photoReference: 'PREF-NYS-002',
             fileReference: 'files/newyear_sale_002.jpg',
@@ -100,6 +103,7 @@ function generateSpecificOrders() {
             offerID: '1598765',
             group: 'Social',
             offerName: 'Instagram Spring Collection',
+            event: 'Spring Launch 2025',
             type: 'Lifestyle',
             photoReference: 'PREF-SPR-003',
             fileReference: 'files/spring_collection_003.jpg',
@@ -134,6 +138,7 @@ function generateSpecificOrders() {
             offerID: '1612345',
             group: 'Editorial',
             offerName: 'Magazine Feature Article',
+            event: 'Spring Launch 2025',
             type: 'Portrait',
             photoReference: 'PREF-MAG-004',
             fileReference: 'files/magazine_feature_004.jpg',
@@ -168,6 +173,7 @@ function generateSpecificOrders() {
             offerID: '1623456',
             group: 'Event',
             offerName: 'Trade Show Booth Photography',
+            event: 'Tech Expo 2024',
             type: 'Action',
             photoReference: 'PREF-TSB-005',
             fileReference: 'files/tradeshow_booth_005.jpg',
@@ -202,6 +208,7 @@ function generateSpecificOrders() {
             offerID: '1634567',
             group: 'Product',
             offerName: 'E-commerce Product Launch',
+            event: 'Tech Expo 2024',
             type: 'Product',
             photoReference: 'PREF-ECL-006',
             fileReference: 'files/ecommerce_launch_006.jpg',
@@ -236,6 +243,7 @@ function generateSpecificOrders() {
             offerID: '1645678',
             group: 'Marketing',
             offerName: 'Black Friday Mega Sale',
+            event: 'Black Friday 2024',
             type: 'Macro',
             photoReference: 'PREF-BFM-007',
             fileReference: 'files/blackfriday_mega_007.jpg',
@@ -270,6 +278,7 @@ function generateSpecificOrders() {
             offerID: '1656789',
             group: 'Social',
             offerName: 'TikTok Viral Campaign',
+            event: 'Spring Launch 2025',
             type: 'Lifestyle',
             photoReference: 'PREF-TIK-008',
             fileReference: 'files/tiktok_viral_008.jpg',
@@ -304,6 +313,7 @@ function generateSpecificOrders() {
             offerID: '1667890',
             group: 'Editorial',
             offerName: 'Winter Lookbook 2025',
+            event: 'Holiday Season 2024',
             type: 'Portrait',
             photoReference: 'PREF-WLB-009',
             fileReference: 'files/winter_lookbook_009.jpg',
@@ -338,6 +348,7 @@ function generateSpecificOrders() {
             offerID: '1678901',
             group: 'Product',
             offerName: 'Summer Electronics Sale',
+            event: 'Summer Sale 2025',
             type: 'Studio',
             photoReference: 'PREF-SES-010',
             fileReference: 'files/summer_electronics_010.jpg',
@@ -404,6 +415,7 @@ function generateMockOrders(count = 50) {
         const photographer = photographersMethods[Math.floor(Math.random() * photographersMethods.length)];
         const group = groups[Math.floor(Math.random() * groups.length)];
         const type = types[Math.floor(Math.random() * types.length)];
+        const event = events[Math.floor(Math.random() * events.length)];
         
         const order = {
             orderNumber: `ORD-${orderNum}`,
@@ -412,6 +424,7 @@ function generateMockOrders(count = 50) {
             page: Math.floor(Math.random() * 999) + 1, // Integer value 1-999
             offerID: String(1500000 + Math.floor(Math.random() * 500000)), // 7-digit number starting from 1500000
             offerName: generateOfferName(),
+            event: event,
             group: group,
             type: type,
             photoReference: `PREF-${orderNum}-${Math.floor(Math.random() * 999)}`,

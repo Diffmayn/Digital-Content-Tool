@@ -197,7 +197,7 @@ class PhotoOrderApp {
         const ordersToShow = this.filteredOrders.slice(start, end);
 
         if (ordersToShow.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="27" style="text-align: center; padding: 40px; color: #7f8c8d;">No orders found</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="29" style="text-align: center; padding: 40px; color: #7f8c8d;">No orders found</td></tr>';
             this.updatePagination();
             return;
         }
@@ -214,11 +214,13 @@ class PhotoOrderApp {
         
         return `
             <tr class="${alertClass}" data-order-id="${order.orderNumber}">
+                <td><input type="checkbox" class="row-checkbox" data-order="${order.orderNumber}"></td>
                 <td><a href="#" class="order-link" onclick="app.viewOrderDetails('${order.orderNumber}'); return false;">${order.orderNumber}</a></td>
                 <td>${order.page || ''}</td>
                 <td>${order.offerID || ''}</td>
-                <td><span class="badge">${order.group || ''}</span></td>
                 <td>${order.offerName || ''}</td>
+                <td><span class="event-badge">${order.event || ''}</span></td>
+                <td><span class="badge">${order.group || ''}</span></td>
                 <td><span class="type-badge">${order.type || ''}</span></td>
                 <td><code class="ref-code">${order.photoReference || ''}</code></td>
                 <td>${order.fileReference ? `<a href="#" class="file-link">📁 View</a>` : ''}</td>
