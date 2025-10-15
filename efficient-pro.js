@@ -13,7 +13,27 @@ const pages = [
 
 const groups = ['Marketing', 'Product', 'Event', 'Editorial', 'Social'];
 const types = ['Portrait', 'Product', 'Landscape', 'Macro', 'Studio', 'Lifestyle', 'Action'];
-const events = ['Holiday Season 2024', 'Spring Launch 2025', 'Summer Sale 2025', 'Black Friday 2024', 'Tech Expo 2024', 'Back to School 2025', 'Cyber Monday 2024', 'Q1 Campaign 2025', 'Q2 Campaign 2025', 'Q3 Campaign 2025', 'Q4 Campaign 2024'];
+
+// Event codes follow format: A[WW][YY][FFF]
+// A = Leaflet event
+// WW = Week number (01-52)
+// YY = Year (24, 25, etc.)
+// FFF = Format code (052=BILKA, 022=Føtex, 070=Netto)
+const events = [
+    'A5224052', // Week 52, 2024, BILKA (Holiday/Christmas)
+    'A0125052', // Week 01, 2025, BILKA (New Year)
+    'A1025052', // Week 10, 2025, BILKA (Spring)
+    'A2025022', // Week 20, 2025, Føtex (Spring)
+    'A4724052', // Week 47, 2024, BILKA (Black Friday)
+    'A4824070', // Week 48, 2024, Netto (Cyber Week)
+    'A3225052', // Week 32, 2025, BILKA (Back to School)
+    'A2225022', // Week 22, 2025, Føtex (Summer)
+    'A2825070', // Week 28, 2025, Netto (Summer)
+    'A4024052', // Week 40, 2024, BILKA (Fall)
+    'A1525022', // Week 15, 2025, Føtex (Easter)
+    'A3525070'  // Week 35, 2025, Netto (Late Summer)
+];
+
 const contentTypes = ['Marketing', 'Editorial', 'E-commerce', 'Social Media', 'Print'];
 const samShotTypes = ['Studio', 'On-location', 'Macro', 'Lifestyle', 'Environmental', '360°'];
 const activities = ['A5252052', 'A5252053', 'A5252054', 'A5252055', 'A5252056', 'A5252057', 'A5252058', 'A5252059'];
@@ -22,6 +42,32 @@ const purchasingGroups = ['112', '234', '345', '456', '567', '678', '789', '890'
 const principles = ['Product Focus', 'Lifestyle Context', 'Brand Story', 'Technical Detail', 'Emotional Appeal'];
 const statuses = ['Pending', 'In Progress', 'Completed', 'Cancelled'];
 const sampleStatuses = ['Article Sent', 'Article Scanned', 'Article Sent Back', 'In Quality Check', 'Awaiting Pickup', 'In Transit', 'Delivered', 'Processing'];
+
+// Helper function to decode event codes
+function decodeEventCode(code) {
+    if (!code || code.length !== 8 || code[0] !== 'A') return { raw: code, decoded: 'Invalid code' };
+    
+    const week = code.substring(1, 3);
+    const year = '20' + code.substring(3, 5);
+    const formatCode = code.substring(5, 8);
+    
+    const formats = {
+        '052': 'BILKA',
+        '022': 'Føtex',
+        '070': 'Netto'
+    };
+    
+    const format = formats[formatCode] || `Format ${formatCode}`;
+    
+    return {
+        raw: code,
+        week: parseInt(week),
+        year: year,
+        format: format,
+        formatCode: formatCode,
+        decoded: `Week ${parseInt(week)}, ${year} - ${format}`
+    };
+}
 
 // Generate 10 specific fictive orders
 function generateSpecificOrders() {
@@ -33,7 +79,7 @@ function generateSpecificOrders() {
             offerID: '1567890',
             group: 'Marketing',
             offerName: 'Christmas Campaign 2024',
-            event: 'Holiday Season 2024',
+            event: 'A5224052', // Week 52, 2024, BILKA
             type: 'Product',
             photoReference: 'PREF-XMAS-001',
             fileReference: 'files/christmas_campaign_001.jpg',
@@ -68,7 +114,7 @@ function generateSpecificOrders() {
             offerID: '1589234',
             group: 'Product',
             offerName: 'New Year Sale 2025',
-            event: 'Holiday Season 2024',
+            event: 'A0125052', // Week 01, 2025, BILKA
             type: 'Studio',
             photoReference: 'PREF-NYS-002',
             fileReference: 'files/newyear_sale_002.jpg',
@@ -103,7 +149,7 @@ function generateSpecificOrders() {
             offerID: '1598765',
             group: 'Social',
             offerName: 'Instagram Spring Collection',
-            event: 'Spring Launch 2025',
+            event: 'A1025052', // Week 10, 2025, BILKA
             type: 'Lifestyle',
             photoReference: 'PREF-SPR-003',
             fileReference: 'files/spring_collection_003.jpg',
@@ -138,7 +184,7 @@ function generateSpecificOrders() {
             offerID: '1612345',
             group: 'Editorial',
             offerName: 'Magazine Feature Article',
-            event: 'Spring Launch 2025',
+            event: 'A2025022', // Week 20, 2025, Føtex
             type: 'Portrait',
             photoReference: 'PREF-MAG-004',
             fileReference: 'files/magazine_feature_004.jpg',
@@ -173,7 +219,7 @@ function generateSpecificOrders() {
             offerID: '1623456',
             group: 'Event',
             offerName: 'Trade Show Booth Photography',
-            event: 'Tech Expo 2024',
+            event: 'A4024052', // Week 40, 2024, BILKA
             type: 'Action',
             photoReference: 'PREF-TSB-005',
             fileReference: 'files/tradeshow_booth_005.jpg',
@@ -208,7 +254,7 @@ function generateSpecificOrders() {
             offerID: '1634567',
             group: 'Product',
             offerName: 'E-commerce Product Launch',
-            event: 'Tech Expo 2024',
+            event: 'A1525022', // Week 15, 2025, Føtex (Easter)
             type: 'Product',
             photoReference: 'PREF-ECL-006',
             fileReference: 'files/ecommerce_launch_006.jpg',
@@ -243,7 +289,7 @@ function generateSpecificOrders() {
             offerID: '1645678',
             group: 'Marketing',
             offerName: 'Black Friday Mega Sale',
-            event: 'Black Friday 2024',
+            event: 'A4724052', // Week 47, 2024, BILKA (Black Friday)
             type: 'Macro',
             photoReference: 'PREF-BFM-007',
             fileReference: 'files/blackfriday_mega_007.jpg',
@@ -278,7 +324,7 @@ function generateSpecificOrders() {
             offerID: '1656789',
             group: 'Social',
             offerName: 'TikTok Viral Campaign',
-            event: 'Spring Launch 2025',
+            event: 'A2825070', // Week 28, 2025, Netto (Summer)
             type: 'Lifestyle',
             photoReference: 'PREF-TIK-008',
             fileReference: 'files/tiktok_viral_008.jpg',
@@ -313,7 +359,7 @@ function generateSpecificOrders() {
             offerID: '1667890',
             group: 'Editorial',
             offerName: 'Winter Lookbook 2025',
-            event: 'Holiday Season 2024',
+            event: 'A5224052', // Week 52, 2024, BILKA (Holiday)
             type: 'Portrait',
             photoReference: 'PREF-WLB-009',
             fileReference: 'files/winter_lookbook_009.jpg',
@@ -348,7 +394,7 @@ function generateSpecificOrders() {
             offerID: '1678901',
             group: 'Product',
             offerName: 'Summer Electronics Sale',
-            event: 'Summer Sale 2025',
+            event: 'A2225022', // Week 22, 2025, Føtex (Summer)
             type: 'Studio',
             photoReference: 'PREF-SES-010',
             fileReference: 'files/summer_electronics_010.jpg',

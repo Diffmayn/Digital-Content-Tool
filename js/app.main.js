@@ -211,6 +211,7 @@ class PhotoOrderApp {
      */
     renderOrderRow(order) {
         const alertClass = order.alert !== 'none' ? `alert-${order.alert}` : '';
+        const eventDecoded = order.event ? this.decodeEventCode(order.event) : '';
         
         return `
             <tr class="${alertClass}" data-order-id="${order.orderNumber}">
@@ -219,7 +220,7 @@ class PhotoOrderApp {
                 <td>${order.page || ''}</td>
                 <td>${order.offerID || ''}</td>
                 <td>${order.offerName || ''}</td>
-                <td><span class="event-badge">${order.event || ''}</span></td>
+                <td><span class="event-badge" title="${eventDecoded}">${order.event || ''}</span></td>
                 <td><span class="badge">${order.group || ''}</span></td>
                 <td><span class="type-badge">${order.type || ''}</span></td>
                 <td><code class="ref-code">${order.photoReference || ''}</code></td>
@@ -567,6 +568,27 @@ class PhotoOrderApp {
         // Import from efficient-pro.js mock data generation
         // This keeps the same data structure
         return window.generateMockOrdersForApp ? window.generateMockOrdersForApp(count) : [];
+    }
+
+    /**
+     * Decode event code to readable format
+     */
+    decodeEventCode(code) {
+        if (!code || code.length !== 8 || code[0] !== 'A') return code;
+        
+        const week = code.substring(1, 3);
+        const year = '20' + code.substring(3, 5);
+        const formatCode = code.substring(5, 8);
+        
+        const formats = {
+            '052': 'BILKA',
+            '022': 'Føtex',
+            '070': 'Netto'
+        };
+        
+        const format = formats[formatCode] || `Format ${formatCode}`;
+        
+        return `Week ${parseInt(week)}, ${year} - ${format}`;
     }
 }
 
