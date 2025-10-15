@@ -270,7 +270,7 @@
     <div id="createOrderModal" class="modal">
         <div class="modal-content" style="max-width: 900px;">
             <div class="modal-header">
-                <h2>Create New Order</h2>
+                <h2>Create New Photo Order</h2>
                 <button class="modal-close" onclick="closeCreateOrderModal()">&times;</button>
             </div>
             <div class="modal-body">
@@ -278,49 +278,62 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <!-- Left Column -->
                         <div>
-                            <h3 style="margin-top: 0; color: #495057;">Offer Information</h3>
+                            <h3 style="margin-top: 0; color: #495057;">Article Information</h3>
                             
                             <div class="form-group">
-                                <label>Page Number *</label>
-                                <input type="number" id="newPage" required min="1" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                <label>Article ID *</label>
+                                <input type="text" id="newArticleId" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
                             </div>
 
                             <div class="form-group">
-                                <label>Offer ID *</label>
-                                <input type="text" id="newOfferID" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                <label>Article Name *</label>
+                                <input type="text" id="newArticleName" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
                             </div>
 
                             <div class="form-group">
-                                <label>Group *</label>
-                                <input type="text" id="newGroup" value="99" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                <label>Purchase Group *</label>
+                                <input type="text" id="newPurchaseGroup" required placeholder="e.g., 112 - Footwear" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
                             </div>
 
                             <div class="form-group">
-                                <label>Offer Name *</label>
-                                <input type="text" id="newOfferName" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                <label>Content Type *</label>
+                                <select id="newContentType" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                    <option value="E-commerce">E-commerce</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Social Media">Social Media</option>
+                                    <option value="Editorial">Editorial</option>
+                                    <option value="Product">Product</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Event Code *</label>
-                                <input type="text" id="newEvent" placeholder="A0125052" required pattern="A\d{4}\d{3}" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
-                                <small style="color: #6c757d; font-size: 11px;">Format: A[WW][YY][FFF] (e.g., A0125052)</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Type *</label>
-                                <select id="newType" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
-                                    <option value="Pack Background">Pack Background</option>
+                                <label>DAM Shot Type *</label>
+                                <select id="newDamShotType" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
                                     <option value="Studio">Studio</option>
                                     <option value="Lifestyle">Lifestyle</option>
-                                    <option value="Portrait">Portrait</option>
-                                    <option value="Action">Action</option>
+                                    <option value="On-location">On-location</option>
+                                    <option value="Macro">Macro</option>
+                                    <option value="360°">360°</option>
+                                    <option value="Environmental">Environmental</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Activity *</label>
+                                <input type="text" id="newActivity" required placeholder="e.g., A5252052" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="newGrouped" style="width: auto; margin-right: 8px;">
+                                    Grouped (multiple articles for single shoot)
+                                </label>
                             </div>
                         </div>
 
                         <!-- Right Column -->
                         <div>
-                            <h3 style="margin-top: 0; color: #495057;">&nbsp;</h3>
+                            <h3 style="margin-top: 0; color: #495057;">Photography Details</h3>
                             
                             <div class="form-group">
                                 <label>Photographer *</label>
@@ -339,19 +352,24 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Principle *</label>
-                                <select id="newPrinciple" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
-                                    <option value="Product Focus">Product Focus</option>
-                                    <option value="Lifestyle Context">Lifestyle Context</option>
-                                    <option value="Emotional Appeal">Emotional Appeal</option>
-                                    <option value="Technical Detail">Technical Detail</option>
-                                    <option value="Brand Story">Brand Story</option>
-                                </select>
+                                <label>Sample Delivery *</label>
+                                <input type="date" id="newSampleDelivery" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
                             </div>
 
                             <div class="form-group">
-                                <label>Preview URL</label>
-                                <input type="url" id="newPreview" placeholder="https://..." style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                <label>Deadline *</label>
+                                <input type="date" id="newDeadline" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label>File Name *</label>
+                                <input type="text" id="newFileName" required placeholder="e.g., ENV_00091234" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Upload Time</label>
+                                <input type="datetime-local" id="newUploadTime" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                <small style="color: #6c757d; font-size: 11px;">Leave empty for current time</small>
                             </div>
 
                             <div class="form-group">
@@ -365,11 +383,13 @@
                         </div>
                     </div>
 
-                    <!-- Articles Section -->
-                    <div style="margin-top: 30px; border-top: 1px solid #dee2e6; padding-top: 20px;">
-                        <h3 style="margin-top: 0; color: #495057;">Articles</h3>
-                        <div id="articlesContainer"></div>
-                        <button type="button" onclick="addArticleField()" style="margin-top: 10px; padding: 8px 16px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">+ Add Article</button>
+                    <!-- Briefing Section -->
+                    <div style="margin-top: 20px;">
+                        <h3 style="margin-top: 0; color: #495057;">Detailed Briefing</h3>
+                        <div class="form-group">
+                            <label>Briefing *</label>
+                            <textarea id="newBriefing" required rows="4" placeholder="Provide detailed instructions for the photographer..." style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px; resize: vertical; font-family: inherit;"></textarea>
+                        </div>
                     </div>
 
                     <!-- Form Actions -->
@@ -420,7 +440,6 @@
         function closeCreateOrderModal() {
             document.getElementById('createOrderModal').classList.remove('active');
             document.getElementById('createOrderForm').reset();
-            document.getElementById('articlesContainer').innerHTML = '';
         }
 
         // Counter for article fields

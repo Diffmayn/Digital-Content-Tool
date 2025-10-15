@@ -587,10 +587,6 @@ class PhotoOrderApp {
     handleCreateOrderSubmit(event) {
         event.preventDefault();
 
-        // Collect form data
-        const form = event.target;
-        const formData = new FormData(form);
-
         // Generate new order number
         const existingOrders = apiService.getOrders();
         const orderNumbers = existingOrders.map(o => {
@@ -600,48 +596,89 @@ class PhotoOrderApp {
         const nextNumber = Math.max(...orderNumbers, 0) + 1;
         const orderNumber = `ORD-2024-${String(nextNumber).padStart(3, '0')}`;
 
-        // Collect articles
-        const articles = [];
-        const articleFields = document.querySelectorAll('.article-field');
-        
-        articleFields.forEach((field, index) => {
-            const fieldId = field.id.split('-')[1];
-            const articleNo = formData.get(`articleNo_${fieldId}`);
-            const articleName = formData.get(`articleName_${fieldId}`);
-            const unitOfMeasure = formData.get(`unitOfMeasure_${fieldId}`);
-            const netContent = formData.get(`netContent_${fieldId}`);
-            const purchasingGroup = formData.get(`purchasingGroup_${fieldId}`);
-            const articlePreview = formData.get(`articlePreview_${fieldId}`) || `https://picsum.photos/seed/art${Date.now()}${index}/200/200`;
+        // Helper function to format dates
+        const formatDate = (dateString) => {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        };
 
-            articles.push({
-                imageRequestID: `IMG-REQ-${String(nextNumber).padStart(3, '0')}-${String(index + 1).padStart(2, '0')}`,
-                articleNo: articleNo,
-                unitOfMeasure: unitOfMeasure,
-                articleName: articleName,
-                netContent: netContent,
-                purchasingGroup: purchasingGroup,
-                fileReference: `files/${articleNo}.jpg`,
-                preview: articlePreview,
-                comments: 0,
-                status: document.getElementById('newStatus').value
-            });
-        });
+        const formatDateTime = (dateString) => {
+            if (!dateString) {
+                const now = new Date();
+                return now.toLocaleString('en-GB', { 
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }).replace(',', '');
+            }
+            const date = new Date(dateString);
+            return date.toLocaleString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).replace(',', '');
+        };
 
-        // Create new order object
+        // Collect form data - Manual photo orders are NOT associated with offers
+        const articleId = document.getElementById('newArticleId').value;
+        const articleName = document.getElementById('newArticleName').value;
+        const purchaseGroup = document.getElementById('newPurchaseGroup').value;
+        const contentType = document.getElementById('newContentType').value;
+        const damShotType = document.getElementById('newDamShotType').value;
+        const activity = document.getElementById('newActivity').value;
+        const grouped = document.getElementById('newGrouped').checked;
+        const photographer = document.getElementById('newPhotographer').value;
+        const sampleDelivery = formatDate(document.getElementById('newSampleDelivery').value);
+        const deadline = formatDate(document.getElementById('newDeadline').value);
+        const fileName = document.getElementById('newFileName').value;
+        const uploadTime = formatDateTime(document.getElementById('newUploadTime').value);
+        const briefing = document.getElementById('newBriefing').value;
+        const status = document.getElementById('newStatus').value;
+
+        // Create new manual order object (not associated with an offer)
         const newOrder = {
             orderNumber: orderNumber,
-            page: parseInt(document.getElementById('newPage').value),
-            offerID: document.getElementById('newOfferID').value,
-            group: document.getElementById('newGroup').value,
-            offerName: document.getElementById('newOfferName').value,
-            event: document.getElementById('newEvent').value,
-            type: document.getElementById('newType').value,
-            photographer: document.getElementById('newPhotographer').value,
-            principle: document.getElementById('newPrinciple').value,
-            preview: document.getElementById('newPreview').value || `https://picsum.photos/seed/ord${Date.now()}/200/200`,
+            page: null,
+            offerID: null,
+            group: null,
+            offerName: `Manual Order - ${articleName}`,
+            event: null,
+            type: damShotType,
+            photographer: photographer,
+            principle: null,
+            preview: `https://picsum.photos/seed/manual${Date.now()}/200/200`,
             comments: 0,
-            status: document.getElementById('newStatus').value,
-            articles: articles
+            status: status,
+            articles: [{
+                imageRequestID: `IMG-REQ-${String(nextNumber).padStart(3, '0')}-01`,
+                articleNo: articleId,
+                unitOfMeasure: 'EA',
+                articleName: articleName,
+                netContent: '1 EA',
+                purchasingGroup: purchaseGroup,
+                fileReference: fileName,
+                preview: `https://picsum.photos/seed/art${Date.now()}/200/200`,
+                comments: 0,
+                status: status
+            }],
+            contentType: contentType,
+            samShotType: damShotType,
+            activity: activity,
+            combinedPhoto: grouped,
+            briefing: briefing,
+            sampleDelivery: sampleDelivery,
+            deadline: deadline,
+            fileName: fileName,
+            uploadTime: uploadTime,
+            createdDate: formatDate(new Date())
         };
 
         // Save order
@@ -650,16 +687,13 @@ class PhotoOrderApp {
             
             // Close modal and reset form
             document.getElementById('createOrderModal').classList.remove('active');
-            form.reset();
-            document.getElementById('articlesContainer').innerHTML = '';
-            window.articleCounter = 0;
-            window.addArticleField(); // Add one default field
+            document.getElementById('createOrderForm').reset();
 
             // Refresh the display
             this.loadOrders();
             
             // Show success message
-            alert(`Order ${orderNumber} created successfully!`);
+            alert(`Manual Photo Order ${orderNumber} created successfully!`);
         } catch (error) {
             console.error('Error creating order:', error);
             alert('Error creating order. Please try again.');
