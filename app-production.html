@@ -266,6 +266,122 @@
         </div>
     </div>
 
+    <!-- Modal for Creating New Order -->
+    <div id="createOrderModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2>Create New Order</h2>
+                <button class="modal-close" onclick="closeCreateOrderModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createOrderForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <!-- Left Column -->
+                        <div>
+                            <h3 style="margin-top: 0; color: #495057;">Offer Information</h3>
+                            
+                            <div class="form-group">
+                                <label>Page Number *</label>
+                                <input type="number" id="newPage" required min="1" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Offer ID *</label>
+                                <input type="text" id="newOfferID" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Group *</label>
+                                <input type="text" id="newGroup" value="99" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Offer Name *</label>
+                                <input type="text" id="newOfferName" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Event Code *</label>
+                                <input type="text" id="newEvent" placeholder="A0125052" required pattern="A\d{4}\d{3}" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                <small style="color: #6c757d; font-size: 11px;">Format: A[WW][YY][FFF] (e.g., A0125052)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Type *</label>
+                                <select id="newType" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                    <option value="Pack Background">Pack Background</option>
+                                    <option value="Studio">Studio</option>
+                                    <option value="Lifestyle">Lifestyle</option>
+                                    <option value="Portrait">Portrait</option>
+                                    <option value="Action">Action</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div>
+                            <h3 style="margin-top: 0; color: #495057;">&nbsp;</h3>
+                            
+                            <div class="form-group">
+                                <label>Photographer *</label>
+                                <select id="newPhotographer" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                    <option value="John Smith">John Smith</option>
+                                    <option value="Mike Chen">Mike Chen</option>
+                                    <option value="Emma Davis">Emma Davis</option>
+                                    <option value="Photo Box">Photo Box</option>
+                                    <option value="Maria Garcia">Maria Garcia</option>
+                                    <option value="Studio A">Studio A</option>
+                                    <option value="Studio C">Studio C</option>
+                                    <option value="Alex Rodriguez">Alex Rodriguez</option>
+                                    <option value="Post-Processing">Post-Processing</option>
+                                    <option value="Generative AI">Generative AI</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Principle *</label>
+                                <select id="newPrinciple" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                    <option value="Product Focus">Product Focus</option>
+                                    <option value="Lifestyle Context">Lifestyle Context</option>
+                                    <option value="Emotional Appeal">Emotional Appeal</option>
+                                    <option value="Technical Detail">Technical Detail</option>
+                                    <option value="Brand Story">Brand Story</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Preview URL</label>
+                                <input type="url" id="newPreview" placeholder="https://..." style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status *</label>
+                                <select id="newStatus" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                    <option value="Pending">Pending</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Articles Section -->
+                    <div style="margin-top: 30px; border-top: 1px solid #dee2e6; padding-top: 20px;">
+                        <h3 style="margin-top: 0; color: #495057;">Articles</h3>
+                        <div id="articlesContainer"></div>
+                        <button type="button" onclick="addArticleField()" style="margin-top: 10px; padding: 8px 16px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">+ Add Article</button>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div style="margin-top: 30px; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid #dee2e6; padding-top: 20px;">
+                        <button type="button" onclick="closeCreateOrderModal()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">Cancel</button>
+                        <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Create Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts (Load in specific order) -->
     <!-- 1. Services -->
     <script src="js/auth.service.js"></script>
@@ -299,6 +415,81 @@
         function closeModal() {
             document.getElementById('orderModal').classList.remove('active');
         }
+
+        // Helper function to close create order modal
+        function closeCreateOrderModal() {
+            document.getElementById('createOrderModal').classList.remove('active');
+            document.getElementById('createOrderForm').reset();
+            document.getElementById('articlesContainer').innerHTML = '';
+        }
+
+        // Counter for article fields
+        let articleCounter = 0;
+
+        // Add article field to the form
+        function addArticleField() {
+            articleCounter++;
+            const container = document.getElementById('articlesContainer');
+            const articleDiv = document.createElement('div');
+            articleDiv.className = 'article-field';
+            articleDiv.id = `article-${articleCounter}`;
+            articleDiv.style.cssText = 'border: 1px solid #dee2e6; padding: 15px; margin-bottom: 15px; border-radius: 4px; position: relative;';
+            
+            articleDiv.innerHTML = `
+                <button type="button" onclick="removeArticleField(${articleCounter})" style="position: absolute; top: 10px; right: 10px; background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px;">Remove</button>
+                <h4 style="margin-top: 0; color: #495057;">Article ${articleCounter}</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <div class="form-group">
+                            <label>Article Number *</label>
+                            <input type="text" name="articleNo_${articleCounter}" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Article Name *</label>
+                            <input type="text" name="articleName_${articleCounter}" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Unit of Measure *</label>
+                            <select name="unitOfMeasure_${articleCounter}" required style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                                <option value="EA">EA (Each)</option>
+                                <option value="KG">KG (Kilogram)</option>
+                                <option value="L">L (Liter)</option>
+                                <option value="PC">PC (Piece)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>Net Content *</label>
+                            <input type="text" name="netContent_${articleCounter}" required placeholder="e.g., 1 EA" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Purchase Group *</label>
+                            <input type="text" name="purchasingGroup_${articleCounter}" required placeholder="e.g., 112 - Footwear" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                        </div>
+                        <div class="form-group">
+                            <label>Preview URL</label>
+                            <input type="url" name="articlePreview_${articleCounter}" placeholder="https://..." style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(articleDiv);
+        }
+
+        // Remove article field
+        function removeArticleField(id) {
+            const articleDiv = document.getElementById(`article-${id}`);
+            if (articleDiv) {
+                articleDiv.remove();
+            }
+        }
+
+        // Initialize with one article field
+        document.addEventListener('DOMContentLoaded', function() {
+            addArticleField();
+        });
     </script>
 </body>
 </html>

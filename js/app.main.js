@@ -572,8 +572,98 @@ class PhotoOrderApp {
             return;
         }
 
-        // TODO: Show create order modal
-        alert('Create New Order\n\nFeature coming soon!');
+        // Show create order modal
+        const modal = document.getElementById('createOrderModal');
+        modal.classList.add('active');
+
+        // Setup form submission
+        const form = document.getElementById('createOrderForm');
+        form.onsubmit = (e) => this.handleCreateOrderSubmit(e);
+    }
+
+    /**
+     * Handle create order form submission
+     */
+    handleCreateOrderSubmit(event) {
+        event.preventDefault();
+
+        // Collect form data
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // Generate new order number
+        const existingOrders = apiService.getOrders();
+        const orderNumbers = existingOrders.map(o => {
+            const match = o.orderNumber.match(/ORD-(\d{4})-(\d{3})/);
+            return match ? parseInt(match[2]) : 0;
+        });
+        const nextNumber = Math.max(...orderNumbers, 0) + 1;
+        const orderNumber = `ORD-2024-${String(nextNumber).padStart(3, '0')}`;
+
+        // Collect articles
+        const articles = [];
+        const articleFields = document.querySelectorAll('.article-field');
+        
+        articleFields.forEach((field, index) => {
+            const fieldId = field.id.split('-')[1];
+            const articleNo = formData.get(`articleNo_${fieldId}`);
+            const articleName = formData.get(`articleName_${fieldId}`);
+            const unitOfMeasure = formData.get(`unitOfMeasure_${fieldId}`);
+            const netContent = formData.get(`netContent_${fieldId}`);
+            const purchasingGroup = formData.get(`purchasingGroup_${fieldId}`);
+            const articlePreview = formData.get(`articlePreview_${fieldId}`) || `https://picsum.photos/seed/art${Date.now()}${index}/200/200`;
+
+            articles.push({
+                imageRequestID: `IMG-REQ-${String(nextNumber).padStart(3, '0')}-${String(index + 1).padStart(2, '0')}`,
+                articleNo: articleNo,
+                unitOfMeasure: unitOfMeasure,
+                articleName: articleName,
+                netContent: netContent,
+                purchasingGroup: purchasingGroup,
+                fileReference: `files/${articleNo}.jpg`,
+                preview: articlePreview,
+                comments: 0,
+                status: document.getElementById('newStatus').value
+            });
+        });
+
+        // Create new order object
+        const newOrder = {
+            orderNumber: orderNumber,
+            page: parseInt(document.getElementById('newPage').value),
+            offerID: document.getElementById('newOfferID').value,
+            group: document.getElementById('newGroup').value,
+            offerName: document.getElementById('newOfferName').value,
+            event: document.getElementById('newEvent').value,
+            type: document.getElementById('newType').value,
+            photographer: document.getElementById('newPhotographer').value,
+            principle: document.getElementById('newPrinciple').value,
+            preview: document.getElementById('newPreview').value || `https://picsum.photos/seed/ord${Date.now()}/200/200`,
+            comments: 0,
+            status: document.getElementById('newStatus').value,
+            articles: articles
+        };
+
+        // Save order
+        try {
+            apiService.createOrder(newOrder);
+            
+            // Close modal and reset form
+            document.getElementById('createOrderModal').classList.remove('active');
+            form.reset();
+            document.getElementById('articlesContainer').innerHTML = '';
+            window.articleCounter = 0;
+            window.addArticleField(); // Add one default field
+
+            // Refresh the display
+            this.loadOrders();
+            
+            // Show success message
+            alert(`Order ${orderNumber} created successfully!`);
+        } catch (error) {
+            console.error('Error creating order:', error);
+            alert('Error creating order. Please try again.');
+        }
     }
 
     /**
